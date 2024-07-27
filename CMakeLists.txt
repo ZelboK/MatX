@@ -133,6 +133,9 @@ if (NOT CMAKE_BUILD_TYPE OR "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(MATX_CUDA_FLAGS ${MATX_CUDA_FLAGS} -lineinfo)
 endif()
 
+# Add the max errors flag
+set(MATX_CUDA_FLAGS ${MATX_CUDA_FLAGS} -Xcompiler -fmax-errors=1)
+
 # Set preferred compiler warning flags. nvc++ doesn't support most warnings
 string(FIND "${CMAKE_CUDA_HOST_COMPILER}" "nvc++" IS_NVCPP)
 if (NOT ${IS_NVCPP} GREATER -1)
@@ -155,8 +158,6 @@ if (NOT ${IS_NVCPP} GREATER -1)
             -Wnull-dereference)
     endif()
 endif()
-
-
 
 set(WARN_FLAGS ${WARN_FLAGS} $<$<COMPILE_LANGUAGE:CUDA>:-Werror all-warnings>)
 set(WARN_FLAGS ${WARN_FLAGS} $<$<COMPILE_LANGUAGE:CXX>:-Werror>)

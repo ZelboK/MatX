@@ -1165,7 +1165,9 @@ void cub_reduce(OutputTensor &a_out, const InputOperator &a, typename InputOpera
 #ifdef __CUDACC__
   MATX_NVTX_START("", matx::MATX_NVTX_LOG_API)
   // Get parameters required by these tensors
-  using param_type = typename detail::ReduceParams_t<ReduceOp, typename InputOperator::value_type>;
+  using param_type = typename detail::ReduceParams_t
+    <ReduceOp, 
+    typename InputOperator::value_type>;
   auto reduce_params = param_type{ReduceOp{}, init};
 
 #ifndef MATX_DISABLE_CUB_CACHE
